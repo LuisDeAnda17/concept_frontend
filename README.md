@@ -7,4 +7,5 @@ Once the user has set up all the classes, they could either click a new button t
 
 Additionally, if the user would want a different pespective of their work, they could use the CalenderSaurus. They would see the current week and all due dates on their corresponding days for that week. Or if they want a better view, they could switch to view all due dates for the current month. 
 
-## [Screen Recording](./MIT-SD-screen-recording.mp4)
+[Screen Recording](MIT-SD-screen-rec.mp4)  
+The screen recording has audio, but I was unable to find a way to have it play in the markdown file. It would need to be downloaded first.
