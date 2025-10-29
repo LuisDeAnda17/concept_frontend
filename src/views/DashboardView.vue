@@ -1,22 +1,16 @@
 <template>
   <div class="dashboard">
     <header class="header">
-      <h1>BrontoBoard Dashboard</h1>
-      <div class="user-info">
-        <span>Welcome, {{ authStore.user?.username }}</span>
-        <button @click="handleLogout" class="btn btn-secondary">Logout</button>
-      </div>
-    </header>
-
-    <main class="main-content">
-      <div class="bronto-boards-section">
-        <div class="section-header">
+        <!-- <div class="section-header"> -->
           <h2>Your BrontoBoards</h2>
           <button @click="openCreateBoardModal" class="btn btn-primary">
             Create New BrontoBoard
           </button>
-        </div>
+        <!-- </div> -->
+    </header>
 
+    <main class="main-content">
+      <div class="bronto-boards-section">
         <div v-if="isLoading" class="loading">Loading BrontoBoards...</div>
 
         <div
@@ -35,7 +29,7 @@
           >
             <h3>BrontoBoard</h3>
             <p>ID: {{ board._id }}</p>
-            <p>Calendar: {{ board.calendar }}</p>
+            <!-- <p>Calendar: {{ board.calendar }}</p> -->
           </div>
         </div>
       </div>
@@ -188,22 +182,16 @@ async function handleCreateBrontoBoard() {
     // showCreateBoardModal.value = false;
   }
 }
-
-function handleLogout() {
-  authStore.logout();
-  brontoBoardStore.reset();
-  router.push("/login");
-}
 </script>
 
 <style scoped>
 .dashboard {
   min-height: 100vh;
-  background: #f8f9fa;
+  background: #AFD2E9;
 }
 
 .header {
-  background: white;
+  background: #7189FF;
   padding: 20px 30px;
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
   display: flex;
@@ -252,7 +240,7 @@ function handleLogout() {
 }
 
 .bronto-board-card {
-  background: white;
+  background: #A1C349;
   border-radius: 8px;
   padding: 20px;
   box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
@@ -303,7 +291,7 @@ function handleLogout() {
 }
 
 .btn-primary {
-  background: #667eea;
+  background: #9e9d9c;
   color: white;
 }
 

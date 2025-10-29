@@ -7,5 +7,13 @@ Once the user has set up all the classes, they could either click a new button t
 
 Additionally, if the user would want a different pespective of their work, they could use the CalenderSaurus. They would see the current week and all due dates on their corresponding days for that week. Or if they want a better view, they could switch to view all due dates for the current month. 
 
-[Screen Recording](MIT-SD-screen-rec.mp4)  
+## Visual Design Study
+
+![typography design study](./assets/Visual_Study_tp.png)
+Highlights the main fonts that I was interested in. I was looking for fonts with a more gentle feel but not too unserious.
+
+![color design study](./assets/Visual_Study_clr.png)
+Looked more towards nature for inspiration of color. These were the main ones I liked and drew inspiration from in the major colors.
+
+## [Updated Screen Recording](./assets/61040-4b-updated-rec.mp4)  
 The screen recording has audio, but I was unable to find a way to have it play in the markdown file. It would need to be downloaded first.

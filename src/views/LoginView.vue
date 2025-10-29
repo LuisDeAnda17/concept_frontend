@@ -135,12 +135,12 @@ async function handleRegister() {
   display: flex;
   align-items: center;
   justify-content: center;
-  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  background: linear-gradient(135deg, #667eea 0%, #AFD2E9 100%);
   padding: 20px;
 }
 
 .login-card {
-  background: white;
+  background: #A1C349;
   border-radius: 12px;
   box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
   padding: 40px;

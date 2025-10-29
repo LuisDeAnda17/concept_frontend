@@ -3,18 +3,9 @@
     <header class="header">
       <div class="header-left">
         <button @click="goBack" class="btn btn-secondary">← Back</button>
-        <h1>BrontoBoard</h1>
+        <h1>Your Classes</h1>
       </div>
       <div class="header-right">
-        <span>{{ authStore.user?.username }}</span>
-        <button @click="handleLogout" class="btn btn-secondary">Logout</button>
-      </div>
-    </header>
-
-    <main class="main-content">
-      <div class="classes-section">
-        <div class="section-header">
-          <h2>Classes</h2>
           <div class="header-actions">
             <button @click="goToCalendar" class="btn btn-outline">
               📅 Calendar
@@ -32,8 +23,11 @@
               Add Class
             </button>
           </div>
-        </div>
+      </div>
+    </header>
 
+    <main class="main-content">
+      <div class="classes-section">
         <div v-if="isLoading" class="loading">Loading classes...</div>
 
         <div
@@ -59,12 +53,12 @@
               >
                 View Assignments
               </button>
-              <button
+              <!-- <button
                 @click.stop="viewOfficeHours(classItem)"
                 class="btn btn-sm btn-outline"
               >
                 View Office Hours
-              </button>
+              </button> -->
             </div>
           </div>
         </div>
@@ -222,17 +216,18 @@ function goToCalendar() {
 
 function selectClass(classItem: Class) {
   // For now, just show a simple alert
-  alert(`Selected class: ${classItem.name}`);
+  // alert(`Selected class: ${classItem.name}`);
+  router.push(`/bronto-board/${props.id}/class/${classItem._id}/assignments`);
 }
 
 function viewAssignments(classItem: Class) {
   router.push(`/bronto-board/${props.id}/class/${classItem._id}/assignments`);
 }
 
-function viewOfficeHours(classItem: Class) {
-  // TODO: Implement office hours view
-  alert(`View office hours for: ${classItem.name}`);
-}
+// function viewOfficeHours(classItem: Class) {
+//   // TODO: Implement office hours view
+//   alert(`View office hours for: ${classItem.name}`);
+// }
 
 async function handleCreateClass() {
   try {
@@ -273,22 +268,16 @@ async function handleCreateAssignment() {
     console.error("Failed to create assignment:", err);
   }
 }
-
-function handleLogout() {
-  authStore.logout();
-  brontoBoardStore.reset();
-  router.push("/login");
-}
 </script>
 
 <style scoped>
 .bronto-board {
   min-height: 100vh;
-  background: #f8f9fa;
+  background: #AFD2E9;
 }
 
 .header {
-  background: white;
+  background: #7189FF;
   padding: 20px 30px;
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
   display: flex;
@@ -348,7 +337,7 @@ function handleLogout() {
 }
 
 .class-card {
-  background: white;
+  background: #A1C349;
   border-radius: 8px;
   padding: 20px;
   box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
@@ -413,12 +402,12 @@ function handleLogout() {
 }
 
 .btn-primary {
-  background: #667eea;
+  background: #A1C349;
   color: white;
 }
 
 .btn-primary:hover:not(:disabled) {
-  background: #5a6fd8;
+  background: #476a3c;
 }
 
 .btn-secondary {
@@ -431,13 +420,13 @@ function handleLogout() {
 }
 
 .btn-outline {
-  background: transparent;
-  color: #667eea;
-  border: 1px solid #667eea;
+  /* background: transparent; */
+  color: #A1C349;
+  border: 1px solid #A1C349;
 }
 
 .btn-outline:hover {
-  background: #667eea;
+  background: #476a3c;
   color: white;
 }
 

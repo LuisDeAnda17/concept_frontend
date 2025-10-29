@@ -1,6 +1,6 @@
 <template>
   <div class="class-assignments">
-    <header class="header">
+    <!-- <header class="header">
       <div class="header-left">
         <button @click="goBack" class="btn btn-secondary">← Back</button>
         <h1>{{ classItem?.name || "Class Assignments" }}</h1>
@@ -8,13 +8,18 @@
       <div class="header-right">
         <span>{{ authStore.user?.username }}</span>
         <button @click="handleLogout" class="btn btn-secondary">Logout</button>
-      </div>
-    </header>
+      </div> -->
+    <!-- </header> -->
 
     <main class="main-content">
       <div class="class-info">
-        <h2>{{ classItem?.name }}</h2>
-        <p class="overview">{{ classItem?.overview }}</p>
+        <div class="class-info-left">
+          <button @click="goBack" class="btn btn-secondary">← Back</button>
+        </div>
+        <div class="class-info-right">
+            <h2>{{ classItem?.name }}</h2>
+            <p class="overview">{{ classItem?.overview }}</p>
+        </div>
       </div>
 
       <div class="assignments-section">
@@ -230,7 +235,7 @@ function handleLogout() {
 <style scoped>
 .class-assignments {
   min-height: 100vh;
-  background: #f8f9fa;
+  background: #7189FF;
 }
 
 .header {
@@ -271,16 +276,47 @@ function handleLogout() {
 }
 
 .class-info {
-  background: white;
+  background: #AFD2E9;
   border-radius: 8px;
   padding: 20px;
   margin-bottom: 30px;
   box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+  position: relative; /* allows absolute positioning of center content */
+  display: flex;
+  align-items: center;
+  justify-content: flex-start; /* back button stays on left */
+  border-bottom: 1px solid #ddd;
+  min-height: 80px; /* optional: keeps consistent height */
 }
 
 .class-info h2 {
   color: #2c3e50;
   margin-bottom: 10px;
+}
+
+/* Left section: Back button */
+.class-info-left {
+  flex-shrink: 0;
+}
+
+/* Center section: Class title and overview */
+.class-info-right {
+  position: absolute;
+  left: 50%;
+  transform: translateX(-50%); /* perfectly centers horizontally */
+  text-align: center;
+}
+
+.class-info-right h2 {
+  margin: 0;
+  font-size: 1.4rem;
+  color: #2c3e50;
+}
+
+.class-info-right .overview {
+  margin: 0.25rem 0 0;
+  color: #7f8c8d;
+  font-size: 0.95rem;
 }
 
 .overview {
@@ -289,7 +325,7 @@ function handleLogout() {
 }
 
 .assignments-section {
-  background: white;
+  background: #AFD2E9;
   border-radius: 8px;
   padding: 20px;
   box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
@@ -320,7 +356,7 @@ function handleLogout() {
   padding: 15px;
   border: 1px solid #e1e8ed;
   border-radius: 6px;
-  background: #f8f9fa;
+  background: #A1C349;
 }
 
 .assignment-info h4 {
@@ -391,8 +427,8 @@ function handleLogout() {
 }
 
 .btn-outline {
-  background: transparent;
-  color: #667eea;
+  background: #256b34;
+  color: white;
   border: 1px solid #667eea;
 }
 

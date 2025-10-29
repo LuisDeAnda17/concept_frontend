@@ -13,8 +13,6 @@
           <span class="month-year">{{ currentMonthYear }}</span>
           <button @click="nextMonth" class="btn btn-sm btn-outline">→</button>
         </div>
-        <span>{{ authStore.user?.username }}</span>
-        <button @click="handleLogout" class="btn btn-secondary">Logout</button>
       </div>
     </header>
 
@@ -275,7 +273,7 @@ function handleLogout() {
 }
 
 .header {
-  background: white;
+  background: #7189FF;
   padding: 20px 30px;
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
   display: flex;
@@ -314,7 +312,7 @@ function handleLogout() {
 }
 
 .header-right span {
-  color: #7f8c8d;
+  color: white;
   font-weight: 500;
 }
 
@@ -460,8 +458,8 @@ function handleLogout() {
 
 .btn-outline {
   background: transparent;
-  color: #667eea;
-  border: 1px solid #667eea;
+  color: white;
+  border: 1px solid white;
 }
 
 .btn-outline:hover {
