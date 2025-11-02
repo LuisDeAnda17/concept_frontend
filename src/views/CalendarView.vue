@@ -92,7 +92,7 @@ import { ref, onMounted, computed } from "vue";
 import { useRouter } from "vue-router";
 import { useAuthStore } from "../stores/auth";
 import { useBrontoBoardStore } from "../stores/brontoBoard";
-import type { Assignment, Class } from "../types/api";
+import type { Assignment } from "../types/api"; //had class at some point
 
 const router = useRouter();
 const authStore = useAuthStore();
@@ -108,7 +108,7 @@ const allAssignments = ref<Assignment[]>([]);
 
 const weekDays = ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"];
 
-const isLoading = computed(() => brontoBoardStore.isLoading);
+// const isLoading = computed(() => brontoBoardStore.isLoading);
 const error = computed(() => brontoBoardStore.error);
 
 const currentMonthYear = computed(() => {
@@ -123,7 +123,7 @@ const calendarDays = computed(() => {
   const month = currentDate.value.getMonth();
 
   const firstDay = new Date(year, month, 1);
-  const lastDay = new Date(year, month + 1, 0);
+  // const lastDay = new Date(year, month + 1, 0);
   const startDate = new Date(firstDay);
   startDate.setDate(startDate.getDate() - firstDay.getDay());
 
@@ -257,12 +257,6 @@ function getAssignmentClass(assignment: Assignment): string {
 
 function viewAssignment(assignment: Assignment) {
   selectedAssignment.value = assignment;
-}
-
-function handleLogout() {
-  authStore.logout();
-  brontoBoardStore.reset();
-  router.push("/login");
 }
 </script>
 

@@ -34,7 +34,7 @@ async function testApiConnection() {
 
   try {
     // Test with a simple registration to see if the API is reachable
-    const response = await apiService.register("testuser", "testpass");
+    const response = await apiService.register({username: "testuser", password: "testpass"});
     result.value = response;
   } catch (err: any) {
     error.value = err.message || "API connection failed";

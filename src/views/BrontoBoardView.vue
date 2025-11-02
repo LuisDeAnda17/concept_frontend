@@ -248,11 +248,17 @@ async function handleCreateAssignment() {
     // Convert datetime-local to ISO 8601 format
     const isoDate = new Date(newAssignmentDueDate.value).toISOString();
 
+    const curBB = brontoBoardStore.currentBrontoBoard
+
+    if (curBB === null){
+      throw new Error("BrontoBoard does not exist");
+    }
+
     console.log("Creating assignment with data:", {
       classId: selectedClassId.value,
       name: newAssignmentName.value,
       dueDate: isoDate,
-      currentBrontoBoard: brontoBoardStore.currentBrontoBoard.value,
+      currentBrontoBoard: curBB._id,
     });
 
     await brontoBoardStore.addAssignment(

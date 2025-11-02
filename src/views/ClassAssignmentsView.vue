@@ -224,12 +224,6 @@ async function handleCreateAssignment() {
     console.error("Failed to create assignment:", err);
   }
 }
-
-function handleLogout() {
-  authStore.logout();
-  brontoBoardStore.reset();
-  router.push("/login");
-}
 </script>
 
 <style scoped>
