@@ -1,4 +1,7 @@
 import axios, { type AxiosInstance, type AxiosResponse } from "axios";
+
+const API_BASE = import.meta.env.VITE_API_BASE_URL || '/api';
+
 import type {
   // BrontoBoard API types
   InitializeBBRequest,
@@ -39,7 +42,8 @@ class ApiService {
 
   constructor() {
     this.api = axios.create({
-      baseURL: "/api",
+      // baseURL: "/api",
+      baseURL: API_BASE,
       headers: {
         "Content-Type": "application/json",
       },
