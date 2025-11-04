@@ -1,16 +1,5 @@
 <template>
   <div class="class-assignments">
-    <!-- <header class="header">
-      <div class="header-left">
-        <button @click="goBack" class="btn btn-secondary">← Back</button>
-        <h1>{{ classItem?.name || "Class Assignments" }}</h1>
-      </div>
-      <div class="header-right">
-        <span>{{ authStore.user?.username }}</span>
-        <button @click="handleLogout" class="btn btn-secondary">Logout</button>
-      </div> -->
-    <!-- </header> -->
-
     <main class="main-content">
       <div class="class-info">
         <div class="class-info-left">

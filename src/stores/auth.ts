@@ -8,6 +8,19 @@ export const useAuthStore = defineStore("auth", () => {
   const user = ref<User | null>(null);
   const isLoading = ref(false);
   const error = ref<string | null>(null);
+  const sessionId = ref<string | null>(null);
+
+  // Initialize from localStorage on load (if available)
+  if (typeof window !== "undefined") {
+    try {
+      const storedSession = window.localStorage.getItem("sessionId");
+      if (storedSession) {
+        sessionId.value = storedSession;
+      }
+    } catch (_) {
+      // ignore storage errors
+    }
+  }
 
   // Getters
   const isAuthenticated = computed(() => !!user.value);
@@ -25,6 +38,12 @@ export const useAuthStore = defineStore("auth", () => {
         _id: response.user,
         username: username,
       };
+      // Create a session and persist the sessionId
+      const sessionResp = await apiService.createSession(response.user);
+      sessionId.value = sessionResp.session;
+      try {
+        window.localStorage.setItem("sessionId", sessionResp.session);
+      } catch (_) {}
       return response;
     } catch (err: any) {
       error.value = err.response?.data?.error || "Login failed";
@@ -45,6 +64,12 @@ export const useAuthStore = defineStore("auth", () => {
         _id: response.user,
         username: username,
       };
+      // Create a session for new user as well and persist it
+      const sessionResp = await apiService.createSession(response.user);
+      sessionId.value = sessionResp.session;
+      try {
+        window.localStorage.setItem("sessionId", sessionResp.session);
+      } catch (_) {}
       return response;
     } catch (err: any) {
       error.value = err.response?.data?.error || "Registration failed";
@@ -54,9 +79,21 @@ export const useAuthStore = defineStore("auth", () => {
     }
   }
 
-  function logout() {
-    user.value = null;
-    error.value = null;
+  async function logout() {
+    try {
+      if (sessionId.value) {
+        await apiService.deleteSession(sessionId.value);
+      }
+    } catch (_) {
+      // ignore errors on logout
+    } finally {
+      user.value = null;
+      error.value = null;
+      sessionId.value = null;
+      try {
+        window.localStorage.removeItem("sessionId");
+      } catch (_) {}
+    }
   }
 
   function clearError() {
@@ -71,6 +108,7 @@ export const useAuthStore = defineStore("auth", () => {
     // Getters
     isAuthenticated,
     userId,
+    sessionId,
     // Actions
     login,
     register,

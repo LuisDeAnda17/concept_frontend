@@ -1,6 +1,6 @@
 import axios, { type AxiosInstance, type AxiosResponse } from "axios";
 
-const API_BASE = import.meta.env.VITE_API_BASE_URL || '/api';
+const API_BASE = import.meta.env.VITE_API_BASE_URL || "/api";
 
 import type {
   // BrontoBoard API types
@@ -52,6 +52,20 @@ class ApiService {
     // Add request interceptor for logging
     this.api.interceptors.request.use(
       (config: any) => {
+        // Inject session id into every POST body if present
+        try {
+          const sessionId =
+            typeof window !== "undefined"
+              ? window.localStorage.getItem("sessionId")
+              : null;
+          if (sessionId && config.method?.toLowerCase() === "post") {
+            const originalData =
+              config.data && typeof config.data === "object" ? config.data : {};
+            config.data = { ...originalData, session: sessionId };
+          }
+        } catch (_) {
+          // no-op if localStorage is unavailable
+        }
         console.log(
           `Making ${config.method?.toUpperCase()} request to ${config.url}`
         );
@@ -119,7 +133,7 @@ class ApiService {
 
   async getAssignmentsForClass(classId: string): Promise<Assignment[]> {
     const response: AxiosResponse<Assignment[]> = await this.api.post(
-      "/BrontoBoard/_getAssignmentsForClass",
+      "/BrontoBoard/getAssignmentsForClass",
       { class: classId }
     );
     return response.data;
@@ -127,7 +141,7 @@ class ApiService {
 
   async getOfficeHoursForClass(classId: string): Promise<OfficeHours[]> {
     const response: AxiosResponse<OfficeHours[]> = await this.api.post(
-      "/BrontoBoard/_getOfficeHoursForClass",
+      "/BrontoBoard/getOfficeHoursForClass",
       { class: classId }
     );
     return response.data;
@@ -135,7 +149,7 @@ class ApiService {
 
   async getClassesForBrontoBoard(brontoBoardId: string): Promise<Class[]> {
     const response: AxiosResponse<Class[]> = await this.api.post(
-      "/BrontoBoard/_getClassesForBrontoBoard",
+      "/BrontoBoard/getClassesForBrontoBoard",
       { brontoBoard: brontoBoardId }
     );
     return response.data;
@@ -143,7 +157,7 @@ class ApiService {
 
   async getBrontoBoardsForUser(userId: string): Promise<BrontoBoard[]> {
     const response: AxiosResponse<BrontoBoard[]> = await this.api.post(
-      "/BrontoBoard/_getBrontoBoardsForUser",
+      "/BrontoBoard/getBrontoBoardsForUser",
       { user: userId }
     );
     return response.data;
@@ -275,6 +289,25 @@ class ApiService {
       "/UserAuthentication/authenticate",
       data
     );
+    return response.data;
+  }
+
+  // Sessioning API Methods
+  async createSession(userId: string): Promise<{ session: string }> {
+    const response: AxiosResponse<{ session: string }> = await this.api.post(
+      "/Sessioning/create",
+      { user: userId }
+    );
+    return response.data;
+  }
+
+  async deleteSession(sessionId: string): Promise<void> {
+    await this.api.post("/Sessioning/delete", { session: sessionId });
+  }
+
+  async getUserForSession(sessionId: string): Promise<Array<{ user: string }>> {
+    const response: AxiosResponse<Array<{ user: string }>> =
+      await this.api.post("/Sessioning/_getUser", { session: sessionId });
     return response.data;
   }
 }
