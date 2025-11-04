@@ -302,7 +302,7 @@ class ApiService {
   }
 
   async deleteSession(sessionId: string): Promise<void> {
-    await this.api.post("/Sessioning/delete", { session: sessionId });
+    await this.api.post("/logout", { session: sessionId });
   }
 
   async getUserForSession(sessionId: string): Promise<Array<{ user: string }>> {
