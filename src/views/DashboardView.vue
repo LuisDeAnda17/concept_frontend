@@ -1,12 +1,12 @@
 <template>
   <div class="dashboard">
     <header class="header">
-        <!-- <div class="section-header"> -->
-          <h2>Your BrontoBoards</h2>
-          <button @click="openCreateBoardModal" class="btn btn-primary">
-            Create New BrontoBoard
-          </button>
-        <!-- </div> -->
+      <!-- <div class="section-header"> -->
+      <h2>Your BrontoBoards</h2>
+      <button @click="openCreateBoardModal" class="btn btn-primary">
+        Create New BrontoBoard
+      </button>
+      <!-- </div> -->
     </header>
 
     <main class="main-content">
@@ -132,10 +132,17 @@ async function handleCreateBrontoBoard() {
     let calendarId: string;
 
     // Check if user already has a calendar
-    console.log("Checking for existing calendar...");
+    console.log("Checking for existing calendar for user:", authStore.userId);
     const existingCalendars = await apiService.getCalendarForUser(
       authStore.userId
     );
+    console.log("Existing calendars result:", existingCalendars);
+    console.log("Existing calendars type:", typeof existingCalendars);
+    console.log(
+      "Existing calendars is array:",
+      Array.isArray(existingCalendars)
+    );
+    console.log("Existing calendars length:", existingCalendars?.length);
 
     if (existingCalendars && existingCalendars.length > 0) {
       // User already has a calendar, reuse it
@@ -143,7 +150,7 @@ async function handleCreateBrontoBoard() {
       console.log("Using existing calendar:", calendarId);
     } else {
       // User doesn't have a calendar, create one
-      console.log("Creating new calendar...");
+      console.log("No existing calendar found. Creating new calendar...");
       const calendarResponse = await apiService.createCalendar({
         user: authStore.userId,
       });
@@ -187,11 +194,11 @@ async function handleCreateBrontoBoard() {
 <style scoped>
 .dashboard {
   min-height: 100vh;
-  background: #AFD2E9;
+  background: #afd2e9;
 }
 
 .header {
-  background: #7189FF;
+  background: #7189ff;
   padding: 20px 30px;
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
   display: flex;
@@ -240,7 +247,7 @@ async function handleCreateBrontoBoard() {
 }
 
 .bronto-board-card {
-  background: #A1C349;
+  background: #a1c349;
   border-radius: 8px;
   padding: 20px;
   box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);

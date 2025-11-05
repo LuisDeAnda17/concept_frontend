@@ -175,11 +175,51 @@ class ApiService {
   }
 
   async getCalendarForUser(userId: string): Promise<Calendar[]> {
-    const response: AxiosResponse<Calendar[]> = await this.api.post(
-      "/BrontoCalendar/_getCalendarForUser",
-      { user: userId }
-    );
-    return response.data;
+
+    // const response: AxiosResponse<Calendar[]> = await this.api.post(
+    //   "/BrontoCalendar/_getCalendarForUser",
+    //   { user: userId }
+    // );
+    // return response.data;
+    try {
+      const response: AxiosResponse<Calendar[] | Calendar | null> =
+        await this.api.post("/BrontoCalendar/_getCalendarForUser", {
+          user: userId,
+        });
+
+      // Handle different response formats
+      if (!response.data) {
+        console.warn("getCalendarForUser: Response data is null/undefined");
+        return [];
+      }
+
+      // If response.data is already an array, return it
+      if (Array.isArray(response.data)) {
+        return response.data;
+      }
+
+      // If response.data is a single object, wrap it in an array
+      if (typeof response.data === "object" && "_id" in response.data) {
+        console.log(
+          "getCalendarForUser: Received single object, wrapping in array"
+        );
+        return [response.data as Calendar];
+      }
+
+      // Fallback to empty array
+      console.warn(
+        "getCalendarForUser: Unexpected response format:",
+        response.data
+      );
+      return [];
+    } catch (error: any) {
+      console.error("getCalendarForUser error:", error);
+      // If it's a 404 or not found error, return empty array instead of throwing
+      if (error.response?.status === 404) {
+        return [];
+      }
+      throw error;
+    }
   }
 
   async createAssignment(
