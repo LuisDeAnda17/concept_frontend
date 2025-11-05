@@ -175,7 +175,6 @@ class ApiService {
   }
 
   async getCalendarForUser(userId: string): Promise<Calendar[]> {
-
     // const response: AxiosResponse<Calendar[]> = await this.api.post(
     //   "/BrontoCalendar/_getCalendarForUser",
     //   { user: userId }
