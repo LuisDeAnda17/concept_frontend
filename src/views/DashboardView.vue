@@ -137,7 +137,7 @@ async function handleCreateBrontoBoard() {
       authStore.userId
     );
 
-    if (existingCalendars) {
+    if (existingCalendars && existingCalendars.length > 0) {
       // User already has a calendar, reuse it
       calendarId = existingCalendars[0]!._id;
       console.log("Using existing calendar:", calendarId);
